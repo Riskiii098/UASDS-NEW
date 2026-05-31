@@ -31,7 +31,7 @@ def train_model():
     print(f"Memulai training model dengan {len(df)} baris data...")
     
     # Tentukan Fitur (X) dan Target (y)
-    features = ['hour', 'day_of_week', 'latitude', 'longitude']
+    features = ['hour', 'day_of_week', 'latitude', 'longitude', 'temperature', 'humidity', 'wind_speed']
     target = 'pm25'
     
     X = df[features]
@@ -44,15 +44,42 @@ def train_model():
     mlflow.set_experiment("Prediksi-Kualitas-Udara-PM25")
     
     import datetime
-    nama_run = f"RF-BandarLampung-{datetime.datetime.now().strftime('%d%b%Y-%H:%M')}"
+    nama_run = f"HGB-BandarLampung-Tuned-{datetime.datetime.now().strftime('%d%b%Y-%H:%M')}"
     with mlflow.start_run(run_name=nama_run):
-        n_estimators = 50  # Dibatasi agar lebih cepat dan hemat RAM
+        from sklearn.ensemble import HistGradientBoostingRegressor
+        from sklearn.model_selection import RandomizedSearchCV
         
-        # Inisialisasi dan Train model
-        model = RandomForestRegressor(n_estimators=n_estimators, random_state=42, n_jobs=-1)
-        model.fit(X_train, y_train)
+        print("Mencari formula terbaik (Auto-Tuning Hyperparameters)...")
         
-        # Lakukan prediksi pada data test
+        # Inisialisasi model yang lebih modern dan cepat
+        base_model = HistGradientBoostingRegressor(random_state=42)
+        
+        # Ruang pencarian hyperparameter
+        param_dist = {
+            'learning_rate': [0.01, 0.05, 0.1, 0.2],
+            'max_iter': [100, 200, 300, 500],
+            'max_depth': [3, 5, 10, None],
+            'min_samples_leaf': [10, 20, 50],
+            'l2_regularization': [0.0, 0.1, 0.5, 1.0]
+        }
+        
+        # Mencari konfigurasi paling akurat menggunakan Cross-Validation
+        search = RandomizedSearchCV(
+            base_model,
+            param_distributions=param_dist,
+            n_iter=15,  # Mencoba 15 kombinasi acak
+            cv=3,       # 3-fold cross validation
+            scoring='r2',
+            random_state=42,
+            n_jobs=-1
+        )
+        
+        search.fit(X_train, y_train)
+        model = search.best_estimator_
+        
+        print(f"Hyperparameter terbaik: {search.best_params_}")
+        
+        # Lakukan prediksi pada data test dengan model terbaik
         y_pred = model.predict(X_test)
         
         # Evaluasi model
@@ -60,20 +87,21 @@ def train_model():
         mse = mean_squared_error(y_test, y_pred)
         r2 = r2_score(y_test, y_pred)
         
-        print(f"Evaluasi Model:")
+        print(f"\n=== Evaluasi Model (Setelah Tuning) ===")
         print(f"MAE: {mae:.2f}")
         print(f"MSE: {mse:.2f}")
         print(f"R-Squared (R2): {r2:.2f}")
         
         # Logging ke MLflow (Parameter dan Metrik)
-        mlflow.log_param("n_estimators", n_estimators)
+        mlflow.log_params(search.best_params_)
         mlflow.log_param("features", features)
+        mlflow.log_param("algorithm", "HistGradientBoostingRegressor")
         mlflow.log_metric("mae", mae)
         mlflow.log_metric("mse", mse)
         mlflow.log_metric("r2", r2)
         
         # Logging Model Artifact ke MLflow
-        mlflow.sklearn.log_model(model, "random_forest_pm25")
+        mlflow.sklearn.log_model(model, "hist_gradient_boosting_pm25")
         
         # Simpan Model Lokal (.joblib) sebagai cadangan untuk Flask
         model_path = os.path.join(os.path.dirname(__file__), '..', 'model.joblib')

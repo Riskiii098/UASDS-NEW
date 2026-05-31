@@ -170,6 +170,20 @@
                                 <input type="number" step="any" id="longitude" name="longitude" required placeholder="105.2667" class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                         </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label for="temperature" class="block text-sm font-medium text-slate-300 mb-1.5">Suhu (°C)</label>
+                                <input type="number" step="any" id="temperature" name="temperature" required placeholder="28.5" class="input-field w-full px-4 py-3 rounded-xl">
+                            </div>
+                            <div>
+                                <label for="humidity" class="block text-sm font-medium text-slate-300 mb-1.5">Kelembapan (%)</label>
+                                <input type="number" step="any" id="humidity" name="humidity" required placeholder="80" class="input-field w-full px-4 py-3 rounded-xl">
+                            </div>
+                            <div>
+                                <label for="wind_speed" class="block text-sm font-medium text-slate-300 mb-1.5">Angin (km/h)</label>
+                                <input type="number" step="any" id="wind_speed" name="wind_speed" required placeholder="10.5" class="input-field w-full px-4 py-3 rounded-xl">
+                            </div>
+                        </div>
                         <button type="submit" class="btn-glow w-full text-white font-bold py-3.5 px-4 rounded-xl mt-4 flex justify-center items-center gap-2">
                             <span>Jalankan Prediksi AI</span>
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -352,7 +366,10 @@
                 hour: document.getElementById('hour').value,
                 day: document.getElementById('day').value,
                 latitude: document.getElementById('latitude').value,
-                longitude: document.getElementById('longitude').value
+                longitude: document.getElementById('longitude').value,
+                temperature: document.getElementById('temperature').value,
+                humidity: document.getElementById('humidity').value,
+                wind_speed: document.getElementById('wind_speed').value
             };
 
             try {

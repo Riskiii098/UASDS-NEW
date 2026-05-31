@@ -4,41 +4,62 @@ from datetime import datetime
 import os
 
 def fetch_and_prepare_data(limit=10000):
-    # Menggunakan Open-Meteo Air Quality API (Gratis, Tanpa API Key)
-    # Kita ambil data historis PM2.5 untuk wilayah Jakarta dan sekitarnya (sebagai representasi ID)
-    url = "https://air-quality-api.open-meteo.com/v1/air-quality"
+    url_aq = "https://air-quality-api.open-meteo.com/v1/air-quality"
+    url_weather = "https://archive-api.open-meteo.com/v1/archive"
     
-    # Ambil data untuk 420 hari terakhir agar mendapatkan ~10.000 baris (per jam)
+    from datetime import datetime, timedelta
+    end_date = datetime.now()
+    start_date = end_date - timedelta(days=420)
+    
     params = {
         "latitude": -5.4500,
         "longitude": 105.2667,
-        "hourly": "pm2_5",
-        "past_days": 420, 
+        "start_date": start_date.strftime("%Y-%m-%d"),
+        "end_date": end_date.strftime("%Y-%m-%d"),
         "timezone": "Asia/Jakarta"
     }
     
-    print(f"Mengambil data dari Open-Meteo API...")
-    response = requests.get(url, params=params)
+    params_aq = params.copy()
+    params_aq["hourly"] = "pm2_5"
     
-    if response.status_code == 200:
-        data = response.json()
+    params_weather = params.copy()
+    params_weather["hourly"] = "temperature_2m,relative_humidity_2m,wind_speed_10m"
+    
+    print(f"Mengambil data Kualitas Udara dari Open-Meteo API...")
+    resp_aq = requests.get(url_aq, params=params_aq)
+    
+    print(f"Mengambil data Cuaca dari Open-Meteo API...")
+    resp_weather = requests.get(url_weather, params=params_weather)
+    
+    if resp_aq.status_code == 200 and resp_weather.status_code == 200:
+        data_aq = resp_aq.json()
+        data_weather = resp_weather.json()
         
-        # Open-Meteo mengembalikan dictionary array untuk waktu dan pm2_5
-        times = data['hourly']['time']
-        pm25_values = data['hourly']['pm2_5']
+        df_aq = pd.DataFrame({
+            'datetime': data_aq['hourly']['time'],
+            'pm25': data_aq['hourly']['pm2_5']
+        })
         
-        records = []
-        for t, pm in zip(times, pm25_values):
-            if pm is not None:  # Abaikan nilai yang kosong
-                records.append({
-                    'datetime': t,
-                    'pm25': pm,
-                    'latitude': -5.4500,
-                    'longitude': 105.2667,
-                    'location': 'Bandar Lampung'
-                })
-                
-        df = pd.DataFrame(records)
+        df_weather = pd.DataFrame({
+            'datetime': data_weather['hourly']['time'],
+            'temperature': data_weather['hourly']['temperature_2m'],
+            'humidity': data_weather['hourly']['relative_humidity_2m'],
+            'wind_speed': data_weather['hourly']['wind_speed_10m']
+        })
+        
+        # Merge both dataframes on datetime
+        df = pd.merge(df_aq, df_weather, on='datetime', how='inner')
+        
+        # Drop missing pm25 values
+        df = df.dropna(subset=['pm25'])
+        
+        # Forward fill weather values if any are missing temporarily
+        df = df.fillna(method='ffill')
+        
+        # Add constant location features
+        df['latitude'] = -5.4500
+        df['longitude'] = 105.2667
+        df['location'] = 'Bandar Lampung'
         
         if df.empty:
             print("Data yang diambil kosong.")
@@ -62,8 +83,7 @@ def fetch_and_prepare_data(limit=10000):
         
         return df
     else:
-        print(f"Gagal mengambil data. Status code: {response.status_code}")
-        print(response.text)
+        print(f"Gagal mengambil data. Status AQ: {resp_aq.status_code}, Status Cuaca: {resp_weather.status_code}")
         return pd.DataFrame()
 
 if __name__ == "__main__":

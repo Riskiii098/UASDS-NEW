@@ -27,7 +27,7 @@ def index():
 def predict():
     """
     Endpoint API untuk menerima input dan mengembalikan prediksi polusi PM2.5.
-    Menerima JSON berisi: hour, day, latitude, longitude
+    Menerima JSON berisi: hour, day, latitude, longitude, temperature, humidity, wind_speed
     """
     if model is None:
         return jsonify({"error": "Model machine learning belum dilatih atau dimuat pada server."}), 500
@@ -40,13 +40,16 @@ def predict():
         day_of_week = data.get('day')
         latitude = data.get('latitude')
         longitude = data.get('longitude')
+        temperature = data.get('temperature')
+        humidity = data.get('humidity')
+        wind_speed = data.get('wind_speed')
         
         # Validasi kelengkapan parameter
-        if None in [hour, day_of_week, latitude, longitude]:
-            return jsonify({"error": "Parameter input tidak lengkap! Harap masukkan hour, day, latitude, dan longitude."}), 400
+        if None in [hour, day_of_week, latitude, longitude, temperature, humidity, wind_speed]:
+            return jsonify({"error": "Parameter input tidak lengkap! Harap masukkan hour, day, latitude, longitude, temperature, humidity, dan wind_speed."}), 400
             
-        # Konversi ke array numpy 2D sesuai urutan waktu training (hour, day_of_week, latitude, longitude)
-        input_data = np.array([[int(hour), int(day_of_week), float(latitude), float(longitude)]])
+        # Konversi ke array numpy 2D sesuai urutan waktu training (hour, day_of_week, latitude, longitude, temperature, humidity, wind_speed)
+        input_data = np.array([[int(hour), int(day_of_week), float(latitude), float(longitude), float(temperature), float(humidity), float(wind_speed)]])
         
         # Proses prediksi dengan model
         prediction = model.predict(input_data)[0]
