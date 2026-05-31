@@ -10,8 +10,8 @@ def fetch_and_prepare_data(limit=10000):
     
     # Ambil data untuk 420 hari terakhir agar mendapatkan ~10.000 baris (per jam)
     params = {
-        "latitude": -6.2088,
-        "longitude": 106.8456,
+        "latitude": -5.4500,
+        "longitude": 105.2667,
         "hourly": "pm2_5",
         "past_days": 420, 
         "timezone": "Asia/Jakarta"
@@ -33,9 +33,9 @@ def fetch_and_prepare_data(limit=10000):
                 records.append({
                     'datetime': t,
                     'pm25': pm,
-                    'latitude': -6.2088,
-                    'longitude': 106.8456,
-                    'location': 'Jakarta'
+                    'latitude': -5.4500,
+                    'longitude': 105.2667,
+                    'location': 'Bandar Lampung'
                 })
                 
         df = pd.DataFrame(records)

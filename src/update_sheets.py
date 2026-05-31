@@ -6,8 +6,8 @@ def fetch_recent_data():
     url = "https://air-quality-api.open-meteo.com/v1/air-quality"
     # Mengambil data historis 7 hari terakhir
     params = {
-        "latitude": -6.2088,
-        "longitude": 106.8456,
+        "latitude": -5.4500,
+        "longitude": 105.2667,
         "hourly": "pm2_5",
         "past_days": 7,
         "forecast_days": 1,
@@ -31,9 +31,9 @@ def fetch_recent_data():
                 records.append([
                     t,
                     pm,
-                    -6.2088,
-                    106.8456,
-                    'Jakarta',
+                    -5.4500,
+                    105.2667,
+                    'Bandar Lampung',
                     dt_obj.hour,
                     dt_obj.dayofweek,
                     dt_obj.month
