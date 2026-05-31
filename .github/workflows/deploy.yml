@@ -1,0 +1,22 @@
+name: Sync to Hugging Face Spaces
+
+on:
+  push:
+    branches:
+      - main  # Trigger action setiap kali push ke branch main
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ambil seluruh history commit
+          lfs: true       # Mendukung Git LFS (misalnya jika model joblib besar, walaupun ini cukup kecil)
+
+      - name: Push to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git push https://Riskiii:$HF_TOKEN@huggingface.co/spaces/Riskiii/UASDS-NEW HEAD:main -f

@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+mlruns/
+data_polusi_lokal.csv
+.DS_Store
+mlflow.db
+*.db

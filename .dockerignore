@@ -1,0 +1,27 @@
+# Git folder
+.git
+.gitignore
+
+# DVC and Data files
+.dvc/
+data_polusi_lokal.csv
+*.csv
+
+# Python Virtual Environments
+venv/
+env/
+.env
+
+# Python bytecodes
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebooks and IDEs
+.ipynb_checkpoints
+.vscode/
+.idea/
+
+# GitHub Actions (Tidak perlu dimasukkan ke image Docker)
+.github/

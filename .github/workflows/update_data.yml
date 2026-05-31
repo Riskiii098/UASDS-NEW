@@ -1,0 +1,30 @@
+name: Auto Update Data Polusi (Google Sheets)
+
+on:
+  schedule:
+    # Akan otomatis berjalan setiap jam di menit ke-0 (misal: 07:00, 08:00, dst)
+    - cron: '0 * * * *'
+  workflow_dispatch: # Mengizinkan eksekusi manual melalui tombol di GitHub Actions tab
+
+jobs:
+  update-sheets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository source
+        uses: actions/checkout@v3
+
+      - name: Setup Python Environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Library Dependensi
+        run: |
+          pip install requests pandas gspread
+
+      - name: Eksekusi Skrip Update Google Sheets
+        env:
+          # URL Web App dari Google Apps Script (tanpa perlu kartu kredit)
+          APPS_SCRIPT_URL: ${{ secrets.APPS_SCRIPT_URL }}
+        run: |
+          python src/update_sheets.py
