@@ -43,7 +43,9 @@ def train_model():
     # Mulai eksperimen di MLflow
     mlflow.set_experiment("Prediksi-Kualitas-Udara-PM25")
     
-    with mlflow.start_run():
+    import datetime
+    nama_run = f"RF-BandarLampung-{datetime.datetime.now().strftime('%d%b%Y-%H:%M')}"
+    with mlflow.start_run(run_name=nama_run):
         n_estimators = 50  # Dibatasi agar lebih cepat dan hemat RAM
         
         # Inisialisasi dan Train model
