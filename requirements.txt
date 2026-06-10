@@ -7,3 +7,5 @@ mlflow
 gunicorn
 python-dotenv
 joblib
+seaborn
+matplotlib
