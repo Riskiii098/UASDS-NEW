@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="id" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart City: AI Air Quality Dashboard</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -41,13 +43,13 @@
     <style>
         body {
             background-color: #0f172a;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.15), transparent 25%),
                 radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.15), transparent 25%);
             background-attachment: fixed;
             color: #f8fafc;
         }
-        
+
         .glass-panel {
             background: rgba(30, 41, 59, 0.6);
             backdrop-filter: blur(12px);
@@ -80,30 +82,59 @@
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="antialiased min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
-    
+
     <!-- Navbar / Header -->
     <header class="sticky top-0 z-50 glass-panel border-b border-glassBorder py-4">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)] animate-pulse-slow">
-                    <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)] animate-pulse-slow">
+                    <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
+                        </path>
+                    </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 tracking-wide">Smart City AI</h1>
+                    <h1
+                        class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 tracking-wide">
+                        Smart City AI</h1>
                     <p class="text-xs text-slate-400 font-medium">Real-Time AQI Monitoring</p>
                 </div>
             </div>
             <div class="hidden sm:flex items-center gap-4 text-sm font-medium text-slate-300">
-                <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Online</span>
+                <span class="flex items-center gap-2"><span
+                        class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> System Online</span>
             </div>
         </div>
     </header>
@@ -112,45 +143,60 @@
         <!-- Hero Title -->
         <div class="text-center mb-8 animate-float">
             <h2 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-3 md:mb-4 tracking-tight">
-                Prediksi Polusi <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">PM2.5</span>
+                Prediksi Polusi <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">PM2.5</span>
             </h2>
             <p class="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg md:text-xl font-light px-2">
-                Manfaatkan kekuatan Machine Learning untuk memprediksi tingkat kualitas udara di berbagai titik kota secara instan.
+                Manfaatkan kekuatan Machine Learning untuk memprediksi tingkat kualitas udara di berbagai titik kota
+                secara instan.
             </p>
         </div>
 
         <!-- Tab Navigation -->
-        <div class="flex justify-start sm:justify-center overflow-x-auto hide-scrollbar border-b border-glassBorder/30 mb-8 sm:mb-10 whitespace-nowrap">
-            <button id="tab-dashboard" class="px-5 sm:px-8 py-3 text-sm sm:text-base text-emerald-400 border-b-2 border-emerald-500 font-semibold focus:outline-none transition-all hover:bg-emerald-500/10 rounded-t-lg">
+        <div
+            class="flex justify-start sm:justify-center overflow-x-auto hide-scrollbar border-b border-glassBorder/30 mb-8 sm:mb-10 whitespace-nowrap">
+            <button id="tab-dashboard"
+                class="px-5 sm:px-8 py-3 text-sm sm:text-base text-emerald-400 border-b-2 border-emerald-500 font-semibold focus:outline-none transition-all hover:bg-emerald-500/10 rounded-t-lg">
                 Dashboard Utama
             </button>
-            <button id="tab-edukasi" class="px-5 sm:px-8 py-3 text-sm sm:text-base text-slate-400 hover:text-slate-200 border-b-2 border-transparent font-semibold focus:outline-none transition-all hover:bg-slate-800/50 rounded-t-lg">
+            <button id="tab-edukasi"
+                class="px-5 sm:px-8 py-3 text-sm sm:text-base text-slate-400 hover:text-slate-200 border-b-2 border-transparent font-semibold focus:outline-none transition-all hover:bg-slate-800/50 rounded-t-lg">
                 Edukasi & Informasi
             </button>
         </div>
 
         <!-- Tab Content 1: Dashboard -->
         <div id="content-dashboard" class="grid grid-cols-1 xl:grid-cols-12 gap-8 transition-opacity duration-300">
-            
+
             <!-- Section Kiri: Form Prediksi (4 columns) -->
             <div class="xl:col-span-4 flex flex-col gap-6">
                 <div class="glass-panel rounded-2xl p-8 relative overflow-hidden group">
                     <!-- Decorative glow -->
-                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all duration-500"></div>
+                    <div
+                        class="absolute -top-24 -right-24 w-48 h-48 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/30 transition-all duration-500">
+                    </div>
 
                     <h3 class="text-2xl font-bold mb-6 text-white flex items-center">
-                        <svg class="w-6 h-6 mr-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        <svg class="w-6 h-6 mr-3 text-emerald-400" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                            </path>
+                        </svg>
                         Parameter Input
                     </h3>
-                    
+
                     <form id="predictForm" class="space-y-5 relative z-10">
                         <div>
-                            <label for="hour" class="block text-sm font-medium text-slate-300 mb-1.5">Jam Berapa? (0-23)</label>
-                            <input type="number" id="hour" name="hour" min="0" max="23" placeholder="Misal: 14" required class="input-field w-full px-4 py-3 rounded-xl">
+                            <label for="hour" class="block text-sm font-medium text-slate-300 mb-1.5">Jam Berapa?
+                                (0-23)</label>
+                            <input type="number" id="hour" name="hour" min="0" max="23" placeholder="Misal: 14" required
+                                class="input-field w-full px-4 py-3 rounded-xl">
                         </div>
                         <div>
                             <label for="day" class="block text-sm font-medium text-slate-300 mb-1.5">Hari</label>
-                            <select id="day" name="day" required class="input-field w-full px-4 py-3 rounded-xl appearance-none cursor-pointer">
+                            <select id="day" name="day" required
+                                class="input-field w-full px-4 py-3 rounded-xl appearance-none cursor-pointer">
                                 <option value="0" class="bg-slate-800">Senin</option>
                                 <option value="1" class="bg-slate-800">Selasa</option>
                                 <option value="2" class="bg-slate-800">Rabu</option>
@@ -162,40 +208,57 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="latitude" class="block text-sm font-medium text-slate-300 mb-1.5">Latitude</label>
-                                <input type="number" step="any" id="latitude" name="latitude" required placeholder="-5.4500" class="input-field w-full px-4 py-3 rounded-xl">
+                                <label for="latitude"
+                                    class="block text-sm font-medium text-slate-300 mb-1.5">Latitude</label>
+                                <input type="number" step="any" id="latitude" name="latitude" required
+                                    placeholder="-5.4500" class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                             <div>
-                                <label for="longitude" class="block text-sm font-medium text-slate-300 mb-1.5">Longitude</label>
-                                <input type="number" step="any" id="longitude" name="longitude" required placeholder="105.2667" class="input-field w-full px-4 py-3 rounded-xl">
+                                <label for="longitude"
+                                    class="block text-sm font-medium text-slate-300 mb-1.5">Longitude</label>
+                                <input type="number" step="any" id="longitude" name="longitude" required
+                                    placeholder="105.2667" class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <label for="temperature" class="block text-sm font-medium text-slate-300 mb-1.5">Suhu (°C)</label>
-                                <input type="number" step="any" id="temperature" name="temperature" required placeholder="28.5" class="input-field w-full px-4 py-3 rounded-xl">
+                                <label for="temperature" class="block text-sm font-medium text-slate-300 mb-1.5">Suhu
+                                    (°C)</label>
+                                <input type="number" step="any" id="temperature" name="temperature" required
+                                    placeholder="28.5" class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                             <div>
-                                <label for="humidity" class="block text-sm font-medium text-slate-300 mb-1.5">Kelembapan (%)</label>
-                                <input type="number" step="any" id="humidity" name="humidity" required placeholder="80" class="input-field w-full px-4 py-3 rounded-xl">
+                                <label for="humidity" class="block text-sm font-medium text-slate-300 mb-1.5">Kelembapan
+                                    (%)</label>
+                                <input type="number" step="any" id="humidity" name="humidity" required placeholder="80"
+                                    class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                             <div>
-                                <label for="wind_speed" class="block text-sm font-medium text-slate-300 mb-1.5">Angin (km/h)</label>
-                                <input type="number" step="any" id="wind_speed" name="wind_speed" required placeholder="10.5" class="input-field w-full px-4 py-3 rounded-xl">
+                                <label for="wind_speed" class="block text-sm font-medium text-slate-300 mb-1.5">Angin
+                                    (km/h)</label>
+                                <input type="number" step="any" id="wind_speed" name="wind_speed" required
+                                    placeholder="10.5" class="input-field w-full px-4 py-3 rounded-xl">
                             </div>
                         </div>
-                        <button type="submit" class="btn-glow w-full text-white font-bold py-3.5 px-4 rounded-xl mt-4 flex justify-center items-center gap-2">
+                        <button type="submit"
+                            class="btn-glow w-full text-white font-bold py-3.5 px-4 rounded-xl mt-4 flex justify-center items-center gap-2">
                             <span>Jalankan Prediksi AI</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
                         </button>
                     </form>
                 </div>
 
                 <!-- Box Hasil Prediksi (Muncul via AJAX) -->
-                <div id="resultBox" class="hidden glass-panel rounded-2xl p-6 text-center transform transition-all duration-500 border-l-4 border-l-emerald-500">
-                    <p class="text-sm text-slate-400 font-medium mb-2 uppercase tracking-[0.2em]">Estimasi Konsentrasi PM2.5</p>
+                <div id="resultBox"
+                    class="hidden glass-panel rounded-2xl p-6 text-center transform transition-all duration-500 border-l-4 border-l-emerald-500">
+                    <p class="text-sm text-slate-400 font-medium mb-2 uppercase tracking-[0.2em]">Estimasi Konsentrasi
+                        PM2.5</p>
                     <div class="flex justify-center items-end gap-2">
-                        <span id="predictionResult" class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]">0.00</span> 
+                        <span id="predictionResult"
+                            class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]">0.00</span>
                         <span class="text-lg md:text-xl font-medium text-emerald-500 mb-1 md:mb-1.5">µg/m³</span>
                     </div>
                 </div>
@@ -203,10 +266,15 @@
 
             <!-- Section Kanan: Dashboard Looker Studio (8 columns) -->
             <div class="xl:col-span-8">
-                <div class="glass-panel rounded-2xl p-2 md:p-4 h-full flex flex-col border border-glassBorder/50 shadow-[0_0_40px_rgba(0,0,0,0.3)]">
+                <div
+                    class="glass-panel rounded-2xl p-2 md:p-4 h-full flex flex-col border border-glassBorder/50 shadow-[0_0_40px_rgba(0,0,0,0.3)]">
                     <div class="flex items-center justify-between px-4 py-3 border-b border-glassBorder/30 mb-2">
                         <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                </path>
+                            </svg>
                             Live Map Monitoring
                         </h3>
                         <div class="flex gap-1.5">
@@ -215,95 +283,143 @@
                             <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                         </div>
                     </div>
-                    
-                    <div class="flex-grow rounded-xl overflow-hidden bg-[#0a0f1c] relative min-h-[500px] md:min-h-[600px] border border-glassBorder/20">
+
+                    <div
+                        class="flex-grow rounded-xl overflow-hidden bg-[#0a0f1c] relative min-h-[500px] md:min-h-[600px] border border-glassBorder/20">
                         <!-- Tempat Embed Iframe Google Looker Studio -->
-                        <iframe 
-                            src="https://datastudio.google.com/embed/reporting/8c442d90-e97f-480d-819e-c951962e97f1/page/9WqzF" 
-                            class="absolute top-0 left-0 w-full h-full z-20"
-                            frameborder="0" 
-                            style="border:0" 
+                        <iframe
+                            src="https://datastudio.google.com/embed/reporting/8c442d90-e97f-480d-819e-c951962e97f1/page/9WqzF"
+                            class="absolute top-0 left-0 w-full h-full z-20" frameborder="0" style="border:0"
                             allowfullscreen>
                         </iframe>
-                        
+
                         <!-- Placeholder Visual (tampil jika src iframe kosong) -->
                         <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
                             <!-- Animated grid background -->
-                            <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px); background-size: 30px 30px;"></div>
-                            
-                            <div class="bg-slate-900/80 backdrop-blur p-8 rounded-2xl border border-slate-700/50 text-center max-w-sm mx-auto z-20">
-                                <div class="w-20 h-20 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-5 border border-slate-700 shadow-inner">
-                                    <svg class="w-10 h-10 text-emerald-500/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <div class="absolute inset-0 opacity-10"
+                                style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px); background-size: 30px 30px;">
+                            </div>
+
+                            <div
+                                class="bg-slate-900/80 backdrop-blur p-8 rounded-2xl border border-slate-700/50 text-center max-w-sm mx-auto z-20">
+                                <div
+                                    class="w-20 h-20 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-5 border border-slate-700 shadow-inner">
+                                    <svg class="w-10 h-10 text-emerald-500/70" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
                                 </div>
                                 <h4 class="text-xl font-semibold text-slate-200 mb-2">Looker Studio Ready</h4>
-                                <p class="text-sm text-slate-400">Tempelkan URL embed Google Looker Studio Anda pada tag <code>&lt;iframe&gt;</code> di dalam kode sumber untuk menampilkan visualisasi peta.</p>
+                                <p class="text-sm text-slate-400">Tempelkan URL embed Google Looker Studio Anda pada tag
+                                    <code>&lt;iframe&gt;</code> di dalam kode sumber untuk menampilkan visualisasi peta.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- Tab Content 2: Edukasi -->
         <div id="content-edukasi" class="hidden glass-panel rounded-2xl p-6 sm:p-8 transition-opacity duration-300">
-            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 border-b border-glassBorder/30 pb-4">Memahami Polusi Udara & Parameter Data</h3>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 border-b border-glassBorder/30 pb-4">
+                Memahami Polusi Udara & Parameter Data</h3>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="space-y-6">
-                    <div class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-emerald-500/30 transition-colors">
+                    <div
+                        class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-emerald-500/30 transition-colors">
                         <h4 class="text-xl font-semibold text-emerald-400 mb-3 flex items-center gap-3">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
                             Apa itu PM2.5?
                         </h4>
                         <p class="text-slate-300 leading-relaxed">
-                            <strong class="text-white">PM2.5</strong> (Particulate Matter 2.5) adalah partikel udara yang berukuran lebih kecil dari 2.5 mikrometer (sekitar 3% dari diameter rambut manusia). Partikel ini sangat berbahaya karena ukurannya yang teramat kecil memungkinkannya masuk sangat jauh ke dalam paru-paru hingga menembus sistem peredaran darah, menyebabkan risiko penyakit pernapasan, jantung, dan infeksi serius lainnya.
+                            <strong class="text-white">PM2.5</strong> (Particulate Matter 2.5) adalah partikel udara
+                            yang berukuran lebih kecil dari 2.5 mikrometer (sekitar 3% dari diameter rambut manusia).
+                            Partikel ini sangat berbahaya karena ukurannya yang teramat kecil memungkinkannya masuk
+                            sangat jauh ke dalam paru-paru hingga menembus sistem peredaran darah, menyebabkan risiko
+                            penyakit pernapasan, jantung, dan infeksi serius lainnya.
                         </p>
                     </div>
-                    
-                    <div class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-cyan-400/30 transition-colors">
+
+                    <div
+                        class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-cyan-400/30 transition-colors">
                         <h4 class="text-xl font-semibold text-cyan-400 mb-3 flex items-center gap-3">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
                             Latitude & Longitude
                         </h4>
                         <p class="text-slate-300 leading-relaxed">
-                            <strong class="text-white">Latitude (Garis Lintang)</strong> dan <strong class="text-white">Longitude (Garis Bujur)</strong> adalah sistem koordinat geografis yang digunakan untuk menentukan lokasi spesifik di permukaan Bumi secara absolut. 
+                            <strong class="text-white">Latitude (Garis Lintang)</strong> dan <strong
+                                class="text-white">Longitude (Garis Bujur)</strong> adalah sistem koordinat geografis
+                            yang digunakan untuk menentukan lokasi spesifik di permukaan Bumi secara absolut.
                             <br><br>
-                            Model AI *Machine Learning* kita membutuhkan parameter koordinat ini karena tingkat polusi sangat bergantung pada letak geografis wilayah (misalnya: area pusat kota yang padat akan jauh lebih terpolusi dibandingkan area resapan hijau).
+                            Model AI *Machine Learning* kita membutuhkan parameter koordinat ini karena tingkat polusi
+                            sangat bergantung pada letak geografis wilayah (misalnya: area pusat kota yang padat akan
+                            jauh lebih terpolusi dibandingkan area resapan hijau).
                         </p>
                     </div>
                 </div>
-                
+
                 <div class="h-full">
-                    <div class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-teal-400/30 transition-colors h-full flex flex-col">
+                    <div
+                        class="bg-[#0a0f1c]/60 p-7 rounded-2xl border border-glassBorder/20 hover:border-teal-400/30 transition-colors h-full flex flex-col">
                         <h4 class="text-xl font-semibold text-teal-400 mb-6 flex items-center gap-3">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                </path>
+                            </svg>
                             Standar Kualitas Udara Berdasarkan PM2.5
                         </h4>
                         <div class="space-y-4 flex-grow">
-                            <div class="flex items-center gap-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
-                                <span class="w-5 h-5 rounded-full bg-green-500 flex-shrink-0 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-                                <span class="text-slate-300"><strong class="text-white">0 - 12.0 µg/m³</strong> : Baik (Sangat Aman)</span>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                                <span
+                                    class="w-5 h-5 rounded-full bg-green-500 flex-shrink-0 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                                <span class="text-slate-300"><strong class="text-white">0 - 12.0 µg/m³</strong> : Baik
+                                    (Sangat Aman)</span>
                             </div>
-                            <div class="flex items-center gap-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
-                                <span class="w-5 h-5 rounded-full bg-yellow-500 flex-shrink-0 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></span>
-                                <span class="text-slate-300"><strong class="text-white">12.1 - 35.4 µg/m³</strong> : Sedang (Aman untuk mayoritas)</span>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                                <span
+                                    class="w-5 h-5 rounded-full bg-yellow-500 flex-shrink-0 shadow-[0_0_10px_rgba(234,179,8,0.5)]"></span>
+                                <span class="text-slate-300"><strong class="text-white">12.1 - 35.4 µg/m³</strong> :
+                                    Sedang (Aman untuk mayoritas)</span>
                             </div>
-                            <div class="flex items-center gap-4 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
-                                <span class="w-5 h-5 rounded-full bg-orange-500 flex-shrink-0 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></span>
-                                <span class="text-slate-300"><strong class="text-white">35.5 - 55.4 µg/m³</strong> : Tidak Sehat (Kelompok Sensitif)</span>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
+                                <span
+                                    class="w-5 h-5 rounded-full bg-orange-500 flex-shrink-0 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></span>
+                                <span class="text-slate-300"><strong class="text-white">35.5 - 55.4 µg/m³</strong> :
+                                    Tidak Sehat (Kelompok Sensitif)</span>
                             </div>
                             <div class="flex items-center gap-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                                <span class="w-5 h-5 rounded-full bg-red-500 flex-shrink-0 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
-                                <span class="text-slate-300"><strong class="text-white">55.5 - 150.4 µg/m³</strong> : Tidak Sehat (Berbahaya untuk semua)</span>
+                                <span
+                                    class="w-5 h-5 rounded-full bg-red-500 flex-shrink-0 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+                                <span class="text-slate-300"><strong class="text-white">55.5 - 150.4 µg/m³</strong> :
+                                    Tidak Sehat (Berbahaya untuk semua)</span>
                             </div>
-                            <div class="flex items-center gap-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
-                                <span class="w-5 h-5 rounded-full bg-purple-500 flex-shrink-0 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
-                                <span class="text-slate-300"><strong class="text-white">> 150.5 µg/m³</strong> : Sangat Berbahaya (Darurat Kesehatan)</span>
+                            <div
+                                class="flex items-center gap-4 p-3 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                                <span
+                                    class="w-5 h-5 rounded-full bg-purple-500 flex-shrink-0 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+                                <span class="text-slate-300"><strong class="text-white">> 150.5 µg/m³</strong> : Sangat
+                                    Berbahaya (Darurat Kesehatan)</span>
                             </div>
                         </div>
                         <p class="text-sm text-slate-400 mt-6 italic">
-                            Klasifikasi di atas diadaptasi dari pedoman resmi EPA (Environmental Protection Agency) mengenai batas toleransi paparan debu dan polutan mikro PM2.5.
+                            Klasifikasi di atas diadaptasi dari pedoman resmi EPA (Environmental Protection Agency)
+                            mengenai batas toleransi paparan debu dan polutan mikro PM2.5.
                         </p>
                     </div>
                 </div>
@@ -345,12 +461,12 @@
 
 
         // Predict Form Logic
-        document.getElementById('predictForm').addEventListener('submit', async function(e) {
+        document.getElementById('predictForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const btn = this.querySelector('button[type="submit"]');
             const originalContent = btn.innerHTML;
-            
+
             // Loading State UI
             btn.innerHTML = `
                 <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -378,26 +494,26 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok && data.status === 'success') {
                     // Tampilkan box hasil dengan animasi
                     const resultBox = document.getElementById('resultBox');
                     resultBox.classList.remove('hidden');
-                    
+
                     // Trigger reflow untuk memastikan transisi CSS berjalan
                     void resultBox.offsetWidth;
-                    
+
                     // Efek Pop-up
                     resultBox.classList.add('scale-105');
                     setTimeout(() => resultBox.classList.remove('scale-105'), 250);
-                    
+
                     // Counter animation (efek angka bergulir)
                     const targetEl = document.getElementById('predictionResult');
                     const targetValue = data.pm25_prediction;
                     animateValue(targetEl, 0, targetValue, 1000);
-                    
+
                 } else {
                     alert('Gagal memprediksi: ' + (data.error || 'Terjadi kesalahan tidak dikenal.'));
                 }
@@ -434,4 +550,5 @@
         }
     </script>
 </body>
+
 </html>
