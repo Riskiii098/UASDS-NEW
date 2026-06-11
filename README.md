@@ -35,11 +35,9 @@ Dataset yang digunakan berisi rekam data polusi dan cuaca lokal yang disimpan da
 **Target:**
 - `pm25`: Tingkat konsentrasi partikulat PM2.5 (mikrogram per meter kubik).
 
-> 💡 **GAMBAR YANG PERLU DITAMBAHKAN DI SINI:**
-> Tambahkan gambar cuplikan tabel dataset (misalnya hasil dari fungsi `df.head()` di Jupyter Notebook) atau grafik distribusi awal (histogram) dari target PM2.5. Tujuannya untuk menunjukkan struktur baris data dan sebaran rentang nilai polusi kepada pembaca laporan.
-> 
-> *Contoh penulisan markdown jika gambar diletakkan di folder assets:*
-> `![Cuplikan Dataset](assets/dataset_head.png)`
+![Tabel 1](images/tabel1.png)
+![Tabel 2](images/tabel2.png)
+![Grafik Garis 1](images/output.png)
 
 ## 3. Metodologi (Data Science Process)
 
@@ -49,22 +47,16 @@ Proses ini mencakup pengumpulan data mentah, pembersihan nilai yang kosong (*mis
 ### 3.2. Exploratory Data Analysis (EDA)
 Tahap EDA dilakukan untuk mengeksplorasi karakteristik data. Pada tahap ini, dianalisis distribusi fitur serta korelasi antara variabel cuaca (suhu, kelembapan, kecepatan angin) terhadap tingkat PM2.5. Selain itu, divisualisasikan pula pola fluktuasi polusi berdasarkan parameter waktu.
 
-> 💡 **GAMBAR YANG PERLU DITAMBAHKAN DI SINI:**
-> Tambahkan **Heatmap Correlation Matrix** (matriks korelasi) untuk memperlihatkan fitur apa yang paling berpengaruh terhadap polusi PM2.5. Anda juga bisa menambahkan grafik tren garis (*Time Series Plot*) atau diagram batang rata-rata PM2.5 berdasarkan jam (`hour`) untuk melihat di jam berapa polusi paling tinggi.
-> 
-> *Contoh penulisan markdown:*
-> `![Heatmap Korelasi](assets/heatmap_korelasi.png)`
+![Grafik Garis 2](images/output2.png)
+
 
 ### 3.3. Modeling
 Proses pemodelan menggunakan algoritma **HistGradientBoostingRegressor** dari library *Scikit-Learn*, yang cepat dan efisien dalam menangani data tabular dengan banyak observasi.
 - **Hyperparameter Tuning:** Menggunakan `RandomizedSearchCV` yang digabungkan dengan validasi silang (*Cross-Validation*) untuk menemukan konfigurasi parameter terbaik (seperti `learning_rate`, `max_iter`, `max_depth`).
 - **Experiment Tracking:** Menggunakan **MLflow** (yang terhubung dengan DagsHub) untuk mencatat (*log*) secara sistematis parameter, metrik evaluasi, dan model dari setiap perulangan eksperimen.
 
-> 💡 **GAMBAR YANG PERLU DITAMBAHKAN DI SINI:**
-> Ambil tangkapan layar (*screenshot*) dari antarmuka Web (UI) **MLflow / DagsHub**. Perlihatkan tabel atau grafik dari riwayat *runs* eksprimen Anda. Ini penting untuk menunjukkan proses *hyperparameter tuning* secara profesional.
-> 
-> *Contoh penulisan markdown:*
-> `![Screenshot MLflow UI](assets/mlflow_ui.png)`
+![Hasil Tes](images/hasiltes.png)
+
 
 ### 3.4. Evaluasi
 Model terbaik hasil *tuning* dievaluasi pada data pengujian (*Test Set*) untuk melihat kinerjanya menggunakan beberapa metrik regresi, yaitu:
@@ -72,20 +64,47 @@ Model terbaik hasil *tuning* dievaluasi pada data pengujian (*Test Set*) untuk m
 - **Mean Squared Error (MSE):** Rata-rata dari kuadrat selisih nilai prediksi dan aktual.
 - **R-Squared ($R^2$):** Proporsi varians dari variabel target yang dapat dijelaskan oleh fitur-fitur independen yang digunakan.
 
-> 💡 **GAMBAR YANG PERLU DITAMBAHKAN DI SINI (Opsional namun disarankan):**
-> Tambahkan **Scatter Plot (Actual vs Predicted)**. Sumbu X adalah nilai asli PM2.5, sumbu Y adalah nilai Prediksi PM2.5. Gambar ini sangat disukai dosen atau *reviewer* karena secara visual langsung memperlihatkan seberapa baik prediksi model mendekati garis miring ideal (diagonal).
-> 
-> *Contoh penulisan markdown:*
-> `![Grafik Actual vs Predicted](assets/actual_vs_predicted.png)`
 
 ## 4. Dashboard dan Form Prediksi
 Model *Machine Learning* yang siap digunakan telah disimpan dalam format file `.joblib` dan diintegrasikan ke dalam backend menggunakan *framework* **Flask**. Aplikasi web ini menyediakan *endpoint* API dan halaman antarmuka HTML. Melalui sebuah *form* interaktif di halaman utama (*Dashboard*), pengguna dapat memasukkan variabel kondisi lingkungan (suhu, kelembapan, jam, dll.), dan sistem secara *real-time* akan memberikan skor prediksi PM2.5 beserta keterangan tingkat berbahayanya.
 
-> 💡 **GAMBAR YANG PERLU DITAMBAHKAN DI SINI:**
-> Ambil hasil *screenshot* halaman web aplikasi **Flask** Anda ketika sedang dijalankan. Jika memungkinkan, screenshot aplikasi setelah pengguna menekan tombol "Prediksi", agar hasil prediksinya juga terlihat.
-> 
-> *Contoh penulisan markdown:*
-> `![Screenshot Dashboard App](assets/dashboard_flask.png)`
+![Dashboard](images/dashboard.png)
+
+Seperti pada gambar, kita dapat memasukkan jam, hari, latitude, longtitude, suhu,
+kelembapan, dan angin. Kemudian, prediksi akan langsung menujukkan estimasi
+konsentrasi pm2.5 sebagai penanda apakah kualitas udara sedang baik atau tidak.
+
+![Informasi](images/informasi.png)
+
+Kemudian, di dalamnya juga terdapat halaman edukasi dan informasi yang berisikan
+beberapa pengetahuan seperti kondisi udara menurut pm2.5 itu seperti apa.
+
+![Score Card](images/scorecard.png)
+
+Di bagian dashboard nya, saya menggunaka google looker yang di embed ke website
+saya, di bagian pertama, saya menampilkan rata-rata pm2.5, kemudian rata-rata
+temperature, dan rata-rata wind_speed. 
+
+![Grafik Garis Dashboard](images/histograf.png)
+
+Kemudian, di dashboard ini juga ditampilkan grafik garis yang menunjukkan perubahan
+yang terjadi pada pm2.5 dan temperature setiap jamnya, apakah menaik atau menurun
+
+![Peta Balon](images/petabalon.png)
+
+Kemudian, ada juga peta balon yang menunjukkan kondisi pm2.5 pada Bandar Lampung
+sesuai dengan warna yang muncul.
+
+![Tabel Heatmap](images/heatmap.png)
+
+Kemudian, ada juga tabel heatmap yang menampilkan pm2.5 per jam di tiap hari mulai
+dari hari pada saat website di akses. Jadi, akan selalu update. Hal ini juga berlaku dengan
+grafik dan box score yang lain
+
+![Scatter Plot](images/scatterplot.png)
+
+Kemudian yang terakhir, ada distribusi wind_speed menurut pm2.5 yang ditampilkan
+dalam bentuk grafik scatter plot. 
 
 ## 5. Kesimpulan dan Saran
 
